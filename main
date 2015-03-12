@@ -1,0 +1,17 @@
+#include <stdio.h>
+#define max_bancos 1000
+
+void adiciona_banco_propriedades(int n_bancos, char nome[], int classificacao);
+void adiciona_banco_relacoes(int n_bancos);
+void empresta(
+void amortiza(
+void despromove
+void promove(
+void procura_banco(int referencia); //devolve indice correspondente ao banco
+
+typedef struct {gslfjhsjkhfjlçhjslçjh} banco;
+
+int main()
+{	
+	return 0;
+}
