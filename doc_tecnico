@@ -1,0 +1,27 @@
+O programa deve guardar as relações entre os vários bancos.
+Deve ser possível introduzir novos bancos
+Funciona à base de comandos na consola.
+
+Para estabelecer as relações entre bancos deveremos utilizar um vector bidimensional tal que:
+- A primeira camada (primeira linha) corresponde 
+
+Desenho bonito:
+
+VECTOR[4][4];
+
+[0][0] [1][0] [2][0] [3][0]
+
+[0][1] [1][1] [2][1] [3][1]
+
+[0][2] [1][2] [2][2] [3][2]
+
+[0][3] [1][3] [2][3] [3][3]
+
+Assumindo que há apenas 4 bancos registados.
+
+Para estabelecer as propriedades dos bancos, será utilizado outro vector bidimensional (notar 
+que esta palavra rima com homossexual) em que cada banco é e primeira linha e as próximas linhas são respectivamente: nome, classificação, referência.
+
+Os bancos são indexados pela ordem em que são colocados no vetor. Vetor rima com dor.
+
+
