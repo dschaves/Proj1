@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h> // nao sei se isto e necessario para o EXIT_SUCCES e EXIT_FAILURE
+
+#define DIM 20 //maximo de caracteres dos parametros
+
+char s[DIM]; //variavel global pois vai ser usada em varias funcoes simultaneamente
+
+void le_parametro() {
+/*funcao que vai passar para a string s um so parametro*/   
+   int c,i;
+   for (i = 0; i < DIM-1 && (c=getchar())!= ' ' && c !='\n'; i++) /*percorre o input ate encontrar um espaco*/
+      s[i] = c;  						  
+   s[i] ='\0';
+}
+
+int str_to_int(char str[DIM]) {
+/*recebe uma string e usa o ASCII para converter num numero*/
+   int num = 0,i = 0;
+   char car;
+   while ((car = str[i]) != '\0') {
+      num = (10*num) + (car - 48);
+      i++;
+   }
+   return num;
+}
+int main() {
+   char nome[DIM], banco_k[DIM], banco_r[DIM];
+   char classificacao[DIM], banco_orig[DIM], banco_dest[DIM]; //declaracoes locais aqui porque nao sei se dentro de um while e eficiente
+   char tipo_lista[DIM], valor[DIM], ref[DIM];
+   int command;
+   while (1) {
+      command = getchar();
+      switch (command) {
+         case 'a':
+	 /*vai correr le_informacao 3 vezes para cada um dos parametros, atualizando o s que e' depois copiado*/
+	    getchar(); //elimina o primeiro espaco
+	    le_parametro();
+	    strcpy(nome, s);  //strcpy e usado para passar o parametro para outra string
+	    le_parametro();
+	    strcpy(classificacao, s);
+	    le_parametro();
+	    strcpy(ref, s);
+	    printf("%s %s %s\n",nome,classificacao,ref); //[A REMOVER] so para mostrar que funciona
+
+	    //executa_a(nome,str_to_int(classificacao),str_to_int(ref));
+
+		// esta funcao vai depois adicionar num vetor 
+		// bidimensional o registo do banco com o nome em string
+		// a classificacao em inteiro e a ref tambem
+		// falta fazer essa funcao
+
+	    printf("%d\n", str_to_int(classificacao)); //[A REMOVER] para mostrar que str_to_int funciona
+	    break;
+
+	 case 'k':
+	    getchar();                      //elimina o primeiro espaco
+	    le_parametro();                 //le a ref
+	    strcpy(banco_k, s);             //copia para banco_k [[talvez seja desnecessario]]
+	    //executa_k(str_to_int(banco_k)); //executa a funcao recebendo o inteiro associado ao banco
+	    break;
+
+	 case 'r':
+	    getchar();                      //igual ao caso k 
+	    le_parametro();                 
+	    strcpy(banco_r, s);             
+	    //executa_r(str_to_int(banco_r)); 
+	    break;
+	 
+	 case 'e':
+	/*neste caso le 3 parametros e vai executar uma funcao usando os inteiros das referencias e do valor*/
+	    getchar();                      
+	    le_parametro();                 
+	    strcpy(banco_orig, s);                       
+	    le_parametro();                 
+	    strcpy(banco_dest, s);                  
+	    le_parametro();                 
+	    strcpy(valor, s);
+	    //executa_e(str_to_int(banco_orig), str_to_int(banco_dest), str_to_int(valor));
+	    break;
+
+	 case 'p': 
+	/*semelhante ao caso e*/
+	    getchar();                      
+	    le_parametro();                 
+	    strcpy(banco_orig, s);                       
+	    le_parametro();                 
+	    strcpy(banco_dest, s);                  
+	    le_parametro();                 
+	    strcpy(valor, s);
+	    //executa_p(str_to_int(banco_orig), str_to_int(banco_dest), str_to_int(valor));
+	    break;
+	 
+	 case 'l':
+	/*le um unico parametro e usa-o para determinar o tipo de listagem*/
+	    getchar();                      
+	    le_parametro();
+	    strcpy(tipo_lista, s);                     // [[pode ser desnecessario]]
+	    //executa_l(str_to_int(tipo_lista));   //assumo que a funcao executa_l receba um inteiro, mas nao e obrigatorio
+	    break;
+
+	 case 'K':
+	/*nao ha parametros portanto apenas executa a funcao*/
+	    //executa_K(); note-se que este K e maiusculo
+	    getchar(); //elimina o \n ver NOTA 1
+	    break;
+
+	 case 'x':
+	/*sai da execucao*/
+	    return EXIT_SUCCESS;
+	    
+	 default:
+	/*em qualquer outro caso da um erro*/
+	   printf("ERRO: Comando desconhecido\n");
+	   getchar(); //elimina o \n ver NOTA 1
+      }
+   //NOTA 1: que aqui nao e necessario um getchar() porque a funcao le_parametro ja elimina o \n
+   //em situacoes que nao executem essa funcao tem de se adicionar um getchar() 
+   } 
+return EXIT_FAILURE;  /*o programa nunca deve chegar aqui*/ 
+}
