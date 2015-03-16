@@ -1,17 +1,79 @@
-#include <stdio.h>
-#define max_bancos 1000
+include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define BANCOS_MAX 1000
 
-void adiciona_banco_propriedades(int n_bancos, char nome[], int classificacao);
-void adiciona_banco_relacoes(int n_bancos);
-void empresta(
-void amortiza(
-void despromove
-void promove(
-void procura_banco(int referencia); //devolve indice correspondente ao banco
+typedef struct
+{
+	char nome[];
+	int n_parceiros;
+	int referencia;
+	int classificacao;
+	int indice;
+}	
+	banco;
 
-typedef struct {gslfjhsjkhfjlçhjslçjh} banco;
+banco cria_banco(char nome[], int referencia, int classificacao)
+{
+	banco novo_banco;
+	novo_banco.nome = *nome;
+	novo_banco.referencia = referencia;
+	novo_banco.classificacao = classificacao;
+	novo_banco.indice = num_bancos;
+	num_bancos++;
+	return novo_banco;
+}
+
+char[] devolve_nome(banco banco_1)
+{return banco_1.nome}
+
+void promove_banco(banco banco_1)
+{banco_1.classificacao = 1;}
+
+void despromove_banco(banco banco_1)
+{banco_1.classificacao = 0;}
+
+
+void faz_emprestimo(banco_1, banco_2) // banco 1 empresta dinheiro a banco 2
+
+int processa_comando(char linha[])
+{
+	int i;	
+	for (i = 0; linha[i] != ' '; i++)  
+	{
+		if
+			char comando = linha[0];
+
+	if comando == 'a' 
+		
+	else if comando == 'k'
+
+	else if comando == 'r'
+
+	else if comando == 'e'
+
+	else if comando == 'p'
+
+	else if comando == 'l'
+
+	else if comando == 'K'
+
+	else if comando == 'x'
+
+	else
+		printf("Comando invalido")
+		return 0;
+			
 
 int main()
 {	
-	return 0;
+	int matriz[BANCOS_MAX][BANCOS_MAX]; //esta matriz e fulcral para este algoritmo
+	int n_bancos = 0;
+	linha = getline();
+	input = processa_comando(linha);
+	if !res goto 66;
+	return EXIT_SUCCESS;
+
 }
+	
+
