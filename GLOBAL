@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define NOMES_MAX 41
+#define BANCOS_MAX 1000
+
+typedef struct
+{
+	char nome[NOMES_MAX];					//como esta no fenix
+	char referencia[];	
+	int classificacao;
+	int total divida;
+	int n_parceiros;
+}	
+	banco;
+
+void processa_comando(char linha[]);
+void comando_a(char linha[]);
+void comando_k(char linha[]);
+void comando_r(char linha[]);
+void comando_e(char linha[]);
+void comando_p(char linha[]);
+void comando_K(void);
+void comando_x(void);
+char[] get_parametro_1(char linha[]);  		//acho que deve devolver char*. *char e um apontador para o inicio da string.
+char[] get_parametro_2(char linha[]);
