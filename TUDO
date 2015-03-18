@@ -1,0 +1,155 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define NOMES_MAX 41
+#define BANCOS_MAX 1000
+
+typedef struct
+{
+	char nome[NOMES_MAX];					//como esta no fenix
+	char referencia[];	
+	int classificacao;
+	int total divida;
+	int n_parceiros;
+}	
+	banco;
+
+void processa_comando(char linha[]);
+void comando_a(char linha[]);
+void comando_k(char linha[]);
+void comando_r(char linha[]);
+void comando_e(char linha[]);
+void comando_p(char linha[]);
+void comando_K(void);
+void comando_x(void);
+char[] get_parametro_1(char linha[]);  		//acho que deve devolver char*. *char e um apontador para o inicio da string.
+char[] get_parametro_2(char linha[]);
+
+
+int matriz [BANCOS_MAX][BANCOS_MAX];		//esta matriz e fulcral para este algoritmo
+banco index_bancos[BANCOS_MAX];				//guarda os bancos por ordem de introducao
+int n_bancos;								//incrementado sempre que se adiciona um banco
+int flag_saida;								//flag activada pela funcao comando_x
+int i;										//porque nao?
+
+int main(void)
+	{	
+		{	
+			while (flag_saida != 1)
+			{
+				linha = getline();
+				processa_comando(linha);
+			}
+			return EXIT_SUCCESS;
+		}
+
+	return EXIT_FAILURE;
+	}
+
+
+void processa_comando(char linha[])
+{
+	comando = linha[0];
+	
+	if (comando == 'a')
+		{comando_a(linha);
+		return;}
+		
+	else if (comando == 'k')
+		{comando_k(linha);
+		return;}
+
+	else if (comando == 'r')
+		{comando_r(linha);
+		return;}
+
+	else if (comando == 'e')
+		{comando_e(linha);
+		return;}
+
+	else if (comando == 'p')
+		{comando_p(linha);
+		return;}
+
+	else if (comando == 'l')
+		{comando_l();
+		return;}
+
+	else if (comando == 'K')
+		{comando_K();
+		return;}
+
+	else if (comando == 'x')
+		{comando_x();
+		return;}
+
+	else
+		printf("Comando invalido");
+}
+
+void comando_a(char linha[])
+{
+	nome = get_parametro_1(linha);
+	ref = get_parametro_2(linha);
+	classif = get_parametro_3(linha);
+	cria_banco(nome, ref, classif);
+	return;	
+}
+
+void comando_k();
+{
+	ref = get_parametro_1(linha);
+	
+
+void comando_r();
+{
+	
+
+void comando_e()
+
+void comando_p();
+
+void comando_K();
+
+void comando_x()
+
+char[] get_parametro_1(linha[])
+{
+	int i;
+	comprimento = strlen(linha);
+	char parametro_1[comprimento];			// ATENCAO! ISTO PODERA NAO FUNCIONAR!
+	for (i = 1; linha[i] != ' '; i++)
+		parametro_1[i] = linha[i];
+	return parametro_1;
+}
+
+
+void cria_banco(char nome[], int referencia, int classificacao)
+{
+	banco novo_banco;
+	novo_banco.nome = nome;
+	novo_banco.referencia = referencia;
+	novo_banco.classificacao = classificacao;
+	index_bancos[n_bancos] = novo_banco
+	n_bancos++;
+}			
+
+int seek_banco(char ref[])
+{
+	for (i = 0; i < MAX_BANCOS; i++)
+		if strcmp(ref
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
