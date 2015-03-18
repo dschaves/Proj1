@@ -1,0 +1,8 @@
+void comando_a(char linha[])
+{
+	nome = get_parametro_1(linha);
+	ref = get_parametro_2(linha);
+	classif = get_parametro_3(linha);
+	cria_banco(nome, ref, classif);
+	return;	
+}
