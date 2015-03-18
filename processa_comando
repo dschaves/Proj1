@@ -1,0 +1,39 @@
+oid processa_comando(char linha[])
+{
+	comando = linha[0];
+	
+	if (comando == 'a')
+		{comando_a(linha);
+		return;}
+		
+	else if (comando == 'k')
+		{comando_k(linha);
+		return;}
+
+	else if (comando == 'r')
+		{comando_r(linha);
+		return;}
+
+	else if (comando == 'e')
+		{comando_e(linha);
+		return;}
+
+	else if (comando == 'p')
+		{comando_p(linha);
+		return;}
+
+	else if (comando == 'l')
+		{comando_l();
+		return;}
+
+	else if (comando == 'K')
+		{comando_K();
+		return;}
+
+	else if (comando == 'x')
+		{comando_x();
+		return;}
+
+	else
+		printf("Comando invalido");
+}
