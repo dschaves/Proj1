@@ -1,102 +1,13 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#define NOMES_MAX 41
-#define BANCOS_MAX 1000
-
-typedef struct
-{
-	char nome[41];					//como esta no fenix
-	int referencia;	
-	int classificacao;
-	int total divida;
-	int n_parceiros;
-}	
-	banco;
-
-int main()
+int main(void)
 	{	
-		{
-		int matriz [BANCOS_MAX][BANCOS_MAX];	//esta matriz e fulcral para este algoritmo
-		banco index_bancos[BANCOS_MAX];		//guarda os bancos por ordem de introducao
-		int n_bancos = 0;			//incrementado sempre que se adiciona um banco
-		int flag_saida = 0;			//flag activada pela funcao comando_x
-		while (flag_saida == 0)
-		{
-			linha = getline();
-			processa_comando(linha);
-		}
-		return EXIT_SUCCESS;
+		{	
+			while (flag_saida != 1)
+			{
+				linha = getline();
+				processa_comando(linha);
+			}
+			return EXIT_SUCCESS;
 		}
 
 	return EXIT_FAILURE;
 	}
-
-
-processa_comando(char linha[])
-{
-	comando = linha[0];
-
-	if (comando == 'a')
-		return comando_a(linha);
-		
-	else if (comando == 'k')
-		return comando_k(linha);
-
-	else if (comando == 'r')
-		return comando_r(linha);
-
-	else if (comando == 'e')
-		return comando_e(linha);
-
-	else if (comando == 'p')
-		return comando_p(linha);
-
-	else if (comando == 'l')
-		return comando_l(linha);
-
-	else if (comando == 'K')
-		return comando_K();
-
-	else if (comando == 'x')
-		return comando_x();
-
-	else
-		printf("Comando invalido")
-		return 0;
-}
-
-void comando_a();
-
-
-void comando_k();
-
-
-void comando_r();
-
-void comando_e()
-
-void comando_p();
-
-void comando_K();
-
-void comando_x();
-	
-
-
-
-void cria_banco(char nome[], int referencia, int classificacao)
-{
-	banco novo_banco;
-	novo_banco.nome = nome;
-	novo_banco.referencia = referencia;
-	novo_banco.classificacao = classificacao;
-	index_bancos[n_bancos] = novo_banco
-	num_bancos++;
-}			
-
-void faz_emprestimo(banco_1, banco_2) // banco 1 empresta dinheiro a banco 2
-
-int
-	
-
