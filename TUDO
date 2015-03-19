@@ -1,12 +1,12 @@
 /*FORMATADO NO PROCESSADOR GEDIT
 DIRECTIVAS DE PREPROCESSAMENTO*/
 
-#include <stdio.h>
+/*#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #define NOMES_MAX 1000 
 #define BANCOS_MAX 1000 
-#define PARAMETROS_MAX 1000 
+#define BUFFER_MAX 1000 
 
 /*ESTRUTURAS*/
 	
@@ -36,25 +36,22 @@ void comando_e(char linha[]);
 void comando_p(char linha[]);
 void comando_K(void);
 void comando_x(void);
-get_parametro(char linha[]);  			//acho que deve devolver char*. *char e um apontador para o inicio da string.
-
-
-int matriz[BANCOS_MAX][BANCOS_MAX];			//esta matriz e fulcral para este algoritmo
-banco index_bancos[BANCOS_MAX];				//guarda os bancos por ordem de introducao
-int Ntotal;								//incrementado sempre que se adiciona um banco
+get_parametro(char linha[]);  	
+		
+int relacional[BANCOS_MAX][BANCOS_MAX];			
+banco bancos[BANCOS_MAX];
+char buffer[BUFFER_MAX];
+			
+int Ntotal;								
 int Nbons;
-int flag_saida;								//flag activada pela funcao comando_x
-int flag_actualizacao;				//esta flag serve para saber se qualquer banco teve uma variavel relevante actualizada
-int i;										//porque nao?
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+int flag_saida;								
+int flag_actualizacao;	 /*Guarda os comandos*/		
+int i;										
 
 int main(void)	
 {	return 0;
 }
-	while (flag_saida != '1')
+	while (flag_saida != 1)
 	{
 		char linha[];	
 		getline(linha);
@@ -63,97 +60,103 @@ int main(void)
 	return EXIT_SUCCESS;
 }
 
-
 void processa_comando(char linha[])
 {
 	comando = linha[0];
 	linha[0] = ' ';			
 
-	if (comando == 'a')
-		{comando_a(linha);
-		return;}
+	switch comando	
+	{
+		case 'a':
+			comando_a(linha);
+			return;
 
-	else if (comando == 'k')
-		{comando_k(linha);
-		return;}
+		case 'k':
+			comando_k(linha);
+			return;
 
-	else if (comando == 'r')
-		{comando_r(linha);
-		return;}
+		case 'r':
+			comando_r(linha);
+			return;
 
-	else if (comando == 'e')
+		case 'e':
+			comando_e(linha);
+			return;
 
-		{comando_e(linha);
-		return;}
+		case 'p':
+			comando_p(linha);
+			return;
 
-	else if (comando == 'p')
-		{comando_p(linha);
-		return;}
+		case 'l':
+			comando_l();
+			return;
 
-	else if (comando == 'l')
-		{comando_l();
-		return;}
+		case 'K':
+			comando_K();
+			return;
 
-	else if (comando == 'K')
-		{comando_K();
-		return;}
+		case 'x':
+			comando_x();
+			return;
 
-	else if (comando == 'x')
-		{comando_x();
-		return;}
-	else
-		printf("Comando invalido");
-	return;
+		default:
+			printf("Comando invalido");
+			return;
+	}
 }
 
-
-
 void comando_a(char linha[])
-
 {
-
 	nome = get_parametro(linha);
 	ref = get_parametro(linha);
 	classif = get_parametro(linha);
 	cria_banco(nome, ref, classif);
 	return;
-
 }
 
 
 
 void comando_k();
-
 {
-
-	ref = get_parametro(linha);
-
-	
+	char* ref = get_parametro(linha);
+	indice = seek_banco(ref);
+	despromove_banco(indice);
+	return;
+}
 
 
 
 void comando_r();
-
 {
-
-
+	char* ref = get_parametro(linha);
+	indice = seek_banco(ref);
+	promove_banco(indice);
+	return;
+}
+	
 
 void comando_e()
+{
+	char* ref1 = get_parametro(linha);
+	char* ref2 = get_parametro(linha);
+	int valor0 = get_parametro(linha);
+	int valor = ASCII_para_decimal(valor0);
+	empresta(
+	return;
+}
+	
 
 
 
 void comando_p();
 
 
-
 void comando_K();
-
 
 
 void comando_x()
 
-{ 
-	flag_saida = 1;
+{ 	flag_saida = 1;
 	printf("%d %d", Ntotal, Nbons);
 	return;
 }
@@ -214,28 +217,87 @@ int seek_banco(char ref[])		/*devolve o indice do banco que se quer, NAO O OBJEC
 			 return i;
 }
 
-get_relacoes(int indice) /*indice do banco do qual se quer as relacoes*/
-
+int* get_relacoes(int indice) /*indice do banco do qual se quer as relacoes*/
+{
 
 	int inP;	/*Num de Parceiros a quem o banco deve*/
 	int outP;	/*Num de Parceios a quem o banco emprestou*/
 	int outV;	/*Valor total que o banco emprestou*/
 	int outVM;	/*Valor total que o banco emprestou a bancos maus*/
 	int inV;	/*Valor total que o banco deve*/
-	int inVM;	/*Valor total que o banco deve a bancos maus*/
-{			/*determinar outP, outV e outVM*/
+	int inVM;	/*Valor total que o banco deve a bancos maus*/			/*determinar outP, outV e outVM*/
 
 	int j; 		/* variavel para os  indices dos outros bancos*/
 	for (j = 0; j 
+}
+
+void despromove_banco(int indice)
+{
+	index_bancos[indice].classificacao = '0';
+	return;
+}
+
+void promove_banco(int indice)
+{
+	index_bancos[indice].classificacao = '1';
+	return;
+}
+
+void empresta(int indice1, int indice2, int montante)
+{
+	relacional[indice1][indice2] += montante;
+	return;
+	/*FALTA A PARTE DOS PARCEIROS ETC*/
+}
+
+void amortiza(int indice1, int indice2, int montante)
+{
+	relacional[indice2][indice1] -= montante;
+	return;
+	
+void despromove_pior()
+{
+	int valor_do_pior = 0;
+	int indice_do_pior = 0;
+	for (i = 0; i <= Ntotal; i++)
+	{	
+		valor_actual = index_bancos[i].inVM;
+		if valor_actual => valor_do_pior
+		{
+			valor_do_pior = valor_actual;
+			indice_do_pior = i;	
+		}
+	}
+	if valor_do_pior != 0
+		despromove_banco(indice_do_pior);
+	return;
+}
+	
 
 
-
-
-
-
-
-
-
-
-
+void print_caracteristicas(i)
+{
+	char* nome1 = bancos[i].nome
+	char* referencia1 = bancos[i].referencia
+	char* classificacao1 = bancos[i].classificacao
+	int inP1 = bancos[i].inP
+	int outP1 = bancos[i].outP
+	int outV1 = bancos[i].outV
+	int outVM1 = bancos[i].outVM
+	int inV1 = bancos[i].inV
+	int inVM1 = bancos[i].inVM
+	printf(nome1);
+	printf(" ");
+	printf(referencia1);
+	printf(" ");
+	printf(classificacao);
+	printf(" ");
+	printf("%d ", inP1);
+	printf("%d ", outP1);
+	printf("%d ", outV1);
+	printf("%d ", outVM1);
+	printf("%d ", inV1);
+	printf("%d ", inVM1);
+	return;
+}
 
