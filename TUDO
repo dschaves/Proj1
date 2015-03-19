@@ -1,32 +1,21 @@
-/*DIRECTIVAS DE PREPROCESSAMENTO*/
+/*FORMATADO NO PROCESSADOR GEDIT
+DIRECTIVAS DE PREPROCESSAMENTO*/
 
 #include <stdio.h>
-
 #include <string.h>
-
 #include <stdlib.h>
-
-#define NOMES_MAX 41
-
-#define BANCOS_MAX 1000
-
-#define PARAMETROS_MAX 20 // nao sei. fica tudo mais facil assim
-
-
+#define NOMES_MAX 1000 
+#define BANCOS_MAX 1000 
+#define PARAMETROS_MAX 1000 
 
 /*ESTRUTURAS*/
-
-
+	
 typedef struct
 
 {
-
 	char nome[NOMES_MAX];	// como esta no fenix				
-
 	char referencia[PARAMETROS_MAX];	
-
 	char classificacao;
-
 	int inP;	//Num de Parceiros a quem o banco deve 
 	int outP;	//Num de Parceios a quem o banco emprestou
 	int outV;	//Valor total que o banco emprestou
@@ -34,167 +23,87 @@ typedef struct
 	int inV;	//Valor total que o banco deve
 	int inVM;	//Valor total que o banco deve a bancos maus
 
-
-}	
-
-	banco;
+}	banco;
 
 
-/*PROTOTIPOS*/
-
+//PROTOTIPOS
 
 void processa_comando(char linha[]);
-
 void comando_a(char linha[]);
-
 void comando_k(char linha[]);
-
 void comando_r(char linha[]);
-
 void comando_e(char linha[]);
-
 void comando_p(char linha[]);
-
 void comando_K(void);
-
 void comando_x(void);
-
-char* get_parametro(char linha[]);  			//acho que deve devolver char*. *char e um apontador para o inicio da string.
-
-		
-
-
-
-/*VARIAVEIS GLOBAIS*/
+get_parametro(char linha[]);  			//acho que deve devolver char*. *char e um apontador para o inicio da string.
 
 
 int matriz[BANCOS_MAX][BANCOS_MAX];			//esta matriz e fulcral para este algoritmo
-
 banco index_bancos[BANCOS_MAX];				//guarda os bancos por ordem de introducao
-
 int Ntotal;								//incrementado sempre que se adiciona um banco
-
 int Nbons;
-
 int flag_saida;								//flag activada pela funcao comando_x
-
+int flag_actualizacao;				//esta flag serve para saber se qualquer banco teve uma variavel relevante actualizada
 int i;										//porque nao?
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-int main(void)
-
-	{	
-
-		{	
-
-			while (flag_saida != 1)
-
-			{
-				char linha[;	
-
-				getline(linha);
-
-				processa_comando(linha);
-
-			}
-
-			return EXIT_SUCCESS;
-
-		}
-
-
-
-	return EXIT_FAILURE;
-
+int main(void)	
+{	return 0;
+}
+	while (flag_saida != '1')
+	{
+		char linha[];	
+		getline(linha);
+		processa_comando(linha);
 	}
-
+	return EXIT_SUCCESS;
+}
 
 
 void processa_comando(char linha[])
-
 {
-
 	comando = linha[0];
-
-	linha[0] = ' ';				//REPARA!
-
-
+	linha[0] = ' ';			
 
 	if (comando == 'a')
-
 		{comando_a(linha);
-
 		return;}
-
-		
 
 	else if (comando == 'k')
-
 		{comando_k(linha);
-
 		return;}
-
-
 
 	else if (comando == 'r')
-
 		{comando_r(linha);
-
 		return;}
-
-
 
 	else if (comando == 'e')
 
 		{comando_e(linha);
-
 		return;}
-
-
 
 	else if (comando == 'p')
-
 		{comando_p(linha);
-
 		return;}
-
-
 
 	else if (comando == 'l')
-
 		{comando_l();
-
 		return;}
-
-
 
 	else if (comando == 'K')
-
 		{comando_K();
-
 		return;}
-
-
 
 	else if (comando == 'x')
-
 		{comando_x();
-
 		return;}
-
-
-
 	else
-
 		printf("Comando invalido");
-
 	return;
-
 }
 
 
@@ -204,14 +113,10 @@ void comando_a(char linha[])
 {
 
 	nome = get_parametro(linha);
-
 	ref = get_parametro(linha);
-
 	classif = get_parametro(linha);
-
 	cria_banco(nome, ref, classif);
-
-	return;	
+	return;
 
 }
 
@@ -260,14 +165,14 @@ char* isola_parametro(char linha[])
 
 {	char parametro[PARAMETROS_MAX];
 	i = 1;
-
 	while (linha[i] == ' ')
 
 		i++;
 
 	for (i ; linha[i] != ' ']; i++)
-	{		
-
+	{	parametro[i] = linha[i] }
+	
+	
 }
 
 
@@ -300,17 +205,28 @@ void cria_banco(char nome[], int referencia, int classificacao)
 
 
 
-int seek_banco(char ref[])
+int seek_banco(char ref[])		/*devolve o indice do banco que se quer, NAO O OBJECTO BANCO*/
 
-{
-
-	for (i = 0; i < MAX_BANCOS; i++)
+{	for (i = 0; i < Ntotal; i++)
 
 		if !(strcmp(ref, index_bancos[i].referencia))
 
 			 return i;
+}
+
+get_relacoes(int indice) /*indice do banco do qual se quer as relacoes*/
 
 
+	int inP;	/*Num de Parceiros a quem o banco deve*/
+	int outP;	/*Num de Parceios a quem o banco emprestou*/
+	int outV;	/*Valor total que o banco emprestou*/
+	int outVM;	/*Valor total que o banco emprestou a bancos maus*/
+	int inV;	/*Valor total que o banco deve*/
+	int inVM;	/*Valor total que o banco deve a bancos maus*/
+{			/*determinar outP, outV e outVM*/
+
+	int j; 		/* variavel para os  indices dos outros bancos*/
+	for (j = 0; j 
 
 
 
