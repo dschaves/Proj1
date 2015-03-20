@@ -1,190 +1,374 @@
-/*FORMATADO NO PROCESSADOR GEDIT
-DIRECTIVAS DE PREPROCESSAMENTO*/
+/*
 
-/*#include <stdio.h>
+FORMATADO NO PROCESSADOR GEDIT
+
+Nao fomos conservativos na quantidade de memoria utilizada pois consideramos
+
+que 64 MB sera mais que suficiente para tudo.
+
+Aprendemos e utilizamos apontadores por iniciativa propria.
+
+*/
+
+
+
+
+
+/*DIRECTIVAS DE PREPROCESSAMENTO*/
+
+
+
+#include <stdio.h>
+
 #include <string.h>
+
 #include <stdlib.h>
-#define NOMES_MAX 1000 
+
+#define NOMES_SIZE 41 
+
 #define BANCOS_MAX 1000 
-#define BUFFER_MAX 1000 
+
+#define BUFFER_SIZE 256
+
+
 
 /*ESTRUTURAS*/
+
 	
+
 typedef struct
 
 {
-	char nome[NOMES_MAX];	// como esta no fenix				
+
+	char nome[NOMES_SIZE];				
+
 	char referencia[PARAMETROS_MAX];	
+
 	char classificacao;
-	int inP;	//Num de Parceiros a quem o banco deve 
-	int outP;	//Num de Parceios a quem o banco emprestou
-	int outV;	//Valor total que o banco emprestou
-	int outVM;	//Valor total que o banco emprestou a bancos maus
-	int inV;	//Valor total que o banco deve
-	int inVM;	//Valor total que o banco deve a bancos maus
+
+	int inP;	
+
+	int outP;
+
+	int outV;	
+
+	int outVM;	
+
+	int inV;	
+
+	int inVM;	
+
+/*Num de Parceiros a quem o banco deve 
+
+Num de Parceios a quem o banco emprestou
+
+Valor total que o banco emprestou
+
+Valor total que o banco emprestou a bancos maus
+
+Valor total que o banco deve
+
+Valor total que o banco deve a bancos maus*/
 
 }	banco;
 
 
-//PROTOTIPOS
+
+
+
+/*PROTOTIPOS*/
+
+
 
 void processa_comando(char linha[]);
+
 void comando_a(char linha[]);
+
 void comando_k(char linha[]);
+
 void comando_r(char linha[]);
+
 void comando_e(char linha[]);
+
 void comando_p(char linha[]);
+
 void comando_K(void);
+
 void comando_x(void);
-get_parametro(char linha[]);  	
+
+char* get_parametro(char linha[]);  	
+
 		
+
 int relacional[BANCOS_MAX][BANCOS_MAX];			
+
 banco bancos[BANCOS_MAX];
-char buffer[BUFFER_MAX];
-			
+
+int histograma[MAX_BANCOS];	
+
 int Ntotal;								
-int Nbons;
-int flag_saida;								
-int flag_actualizacao;	 /*Guarda os comandos*/		
-int i;										
 
-int main(void)	
-{	return 0;
-}
+int Nbons;								
+
+int flag_actualizacao;												
+
+
+
+
+
+int main(void)
+
+{	int flag_saida = 0;
+
 	while (flag_saida != 1)
-	{
-		char linha[];	
-		getline(linha);
-		processa_comando(linha);
+
+	{	
+
+		char linha[BUFFER_SIZE];
+
+		fgets(linha, BUFFER_SIZE, stdin);
+
+		flag_saida = processa_comando(linha);
+
 	}
+
 	return EXIT_SUCCESS;
+
 }
 
-void processa_comando(char linha[])
-{
-	comando = linha[0];
-	linha[0] = ' ';			
 
-	switch comando	
-	{
-		case 'a':
-			comando_a(linha);
-			return;
 
-		case 'k':
-			comando_k(linha);
-			return;
+int processa_comando(char linha[])
 
-		case 'r':
-			comando_r(linha);
-			return;
+{	
 
-		case 'e':
-			comando_e(linha);
-			return;
+	int tamanho = strlen(linha);
 
-		case 'p':
-			comando_p(linha);
-			return;
+	linha[tamanho-1] = ' ';
 
-		case 'l':
-			comando_l();
-			return;
+	linha[0] = ' ';	
 
-		case 'K':
-			comando_K();
-			return;
+	char* comando = get_parametro(linha);
 
-		case 'x':
-			comando_x();
-			return;
 
-		default:
-			printf("Comando invalido");
-			return;
-	}
+
+	if (!(strcmp( "a", comando)))  	/* Ou seja, se "a" == comando*/
+
+		return comando_a(linha);
+
+
+
+	else if	(!(strcmp( "k", comando)))
+
+		return comando_k(linha);
+
+
+
+	else if	(!(strcmp( "r", comando)))
+
+		return comando_r(linha);
+
+
+
+	else if	(!(strcmp( "e", comando)))
+
+		return comando_e(linha);
+
+
+
+	else if	(!(strcmp( "p", comando)))
+
+		return comando_p(linha);
+
+
+
+	else if	(!(strcmp( "l", comando)))
+
+		return comando_l(linha);
+
+
+
+	else if	(!(strcmp( "K", comando)))
+
+		return comando_K(void);
+
+
+
+	else if	(!(strcmp( "x", comando)))
+
+		return comando_x(void);
+
+
+
+	else
+
+		puts("Comando errado.");
+
+		return 0;
+
 }
+
+	
+
+	
+
+
 
 void comando_a(char linha[])
+
 {
-	nome = get_parametro(linha);
-	ref = get_parametro(linha);
-	classif = get_parametro(linha);
+
+	char* nome = get_parametro(linha);
+
+	char* ref = get_parametro(linha);
+
+	char* classif = get_parametro(linha);
+
 	cria_banco(nome, ref, classif);
+
 	return;
+
 }
 
 
 
-void comando_k();
+void comando_k(char linha[]);
+
 {
+
 	char* ref = get_parametro(linha);
+
 	indice = seek_banco(ref);
+
 	despromove_banco(indice);
+
 	return;
+
 }
 
 
 
-void comando_r();
+
+
+
+
+void comando_r(char linha[]);
+
 {
+
 	char* ref = get_parametro(linha);
+
 	indice = seek_banco(ref);
+
 	promove_banco(indice);
+
 	return;
+
 }
+
 	
 
-void comando_e()
+
+
+void comando_e(char linha[])
+
 {
+
 	char* ref1 = get_parametro(linha);
+
 	char* ref2 = get_parametro(linha);
-	int valor0 = get_parametro(linha);
+
+	char* valor0 = get_parametro(linha);
+
 	int valor = ASCII_para_decimal(valor0);
-	empresta(
+
+	empresta(ref1, ref2, valor);
+
 	return;
+
 }
+
 	
 
+void comando_p(char [linha]);
+
+{
+
+	char* ref1 = get_parametro(linha);
+
+	char* ref2 = get_parametro(linha);
+
+	char* valor0 = get_parametro(linha);
+
+	int valor = ASCII_para_decimal(valor0);
+
+	amortiza(ref1, ref2, valor);
+
+	return;
+
+}
 
 
-void comando_p();
 
+void comando_l(char linha[]);
+
+{
+
+	char linha* = 
+
+
+
+	
 
 void comando_K();
+
+{
+
+	int i = despromove_pior(); /*Simultaneamente despromove o pior e devolve o seu indice*/
+
+	print_caracteristicas(i);
+
+	return;
+
+}
+
+
+
+
+
 
 
 void comando_x()
 
+
+
 { 	flag_saida = 1;
+
 	printf("%d %d", Ntotal, Nbons);
+
 	return;
+
 }
 
 
+
+void get_parametro(char linha[])
+
+{return strtok(linha," ")}
+
 	
 
-char* isola_parametro(char linha[])
-
-{	char parametro[PARAMETROS_MAX];
-	i = 1;
-	while (linha[i] == ' ')
-
-		i++;
-
-	for (i ; linha[i] != ' ']; i++)
-	{	parametro[i] = linha[i] }
 	
-	
-}
-
-
 
 
 
 void cria_banco(char nome[], int referencia, int classificacao)
 
+
+
 {
+
+
 
 	banco novo_banco;
 
@@ -196,13 +380,15 @@ void cria_banco(char nome[], int referencia, int classificacao)
 
 	index_bancos[Ntotal] = novo_banco
 
-	Ntotal++;
-
 	if (classificacao == 1)
 
-		Nbons++;
+	Nbons++;
+
+	Ntotal++;
 
 	return;
+
+
 
 }			
 
@@ -210,94 +396,179 @@ void cria_banco(char nome[], int referencia, int classificacao)
 
 int seek_banco(char ref[])		/*devolve o indice do banco que se quer, NAO O OBJECTO BANCO*/
 
+
+
 {	for (i = 0; i < Ntotal; i++)
 
 		if !(strcmp(ref, index_bancos[i].referencia))
 
-			 return i;
+			return i;
+
 }
+
+
 
 int* get_relacoes(int indice) /*indice do banco do qual se quer as relacoes*/
+
 {
+
+
 
 	int inP;	/*Num de Parceiros a quem o banco deve*/
+
 	int outP;	/*Num de Parceios a quem o banco emprestou*/
+
 	int outV;	/*Valor total que o banco emprestou*/
+
 	int outVM;	/*Valor total que o banco emprestou a bancos maus*/
+
 	int inV;	/*Valor total que o banco deve*/
+
 	int inVM;	/*Valor total que o banco deve a bancos maus*/			/*determinar outP, outV e outVM*/
 
+
+
 	int j; 		/* variavel para os  indices dos outros bancos*/
+
 	for (j = 0; j 
+
 }
+
+
 
 void despromove_banco(int indice)
+
 {
+
 	index_bancos[indice].classificacao = '0';
+
 	return;
+
 }
+
+
 
 void promove_banco(int indice)
+
 {
+
 	index_bancos[indice].classificacao = '1';
+
 	return;
+
 }
+
+
 
 void empresta(int indice1, int indice2, int montante)
+
 {
+
 	relacional[indice1][indice2] += montante;
+
 	return;
+
 	/*FALTA A PARTE DOS PARCEIROS ETC*/
+
 }
+
+
 
 void amortiza(int indice1, int indice2, int montante)
+
 {
+
 	relacional[indice2][indice1] -= montante;
+
 	return;
-	
-void despromove_pior()
-{
-	int valor_do_pior = 0;
-	int indice_do_pior = 0;
-	for (i = 0; i <= Ntotal; i++)
-	{	
-		valor_actual = index_bancos[i].inVM;
-		if valor_actual => valor_do_pior
-		{
-			valor_do_pior = valor_actual;
-			indice_do_pior = i;	
-		}
-	}
-	if valor_do_pior != 0
-		despromove_banco(indice_do_pior);
-	return;
+
 }
+
 	
 
+int despromove_pior(void)
 
-void print_caracteristicas(i)
 {
+
+	int valor_do_pior = 0;
+
+	int indice_do_pior = 0;
+
+	for (i = 0; i <= Ntotal; i++)
+
+	{	
+
+		valor_actual = index_bancos[i].inVM;
+
+		if valor_actual => valor_do_pior
+
+		{
+
+			valor_do_pior = valor_actual;
+
+			indice_do_pior = i;	
+
+		}
+
+	}
+
+	if valor_do_pior != 0
+
+		despromove_banco(indice_do_pior);
+
+	return indice_do_pior;
+
+}
+
+
+
+void print_caracteristicas(int i)
+
+{
+
 	char* nome1 = bancos[i].nome
+
 	char* referencia1 = bancos[i].referencia
+
 	char* classificacao1 = bancos[i].classificacao
+
 	int inP1 = bancos[i].inP
+
 	int outP1 = bancos[i].outP
+
 	int outV1 = bancos[i].outV
+
 	int outVM1 = bancos[i].outVM
+
 	int inV1 = bancos[i].inV
+
 	int inVM1 = bancos[i].inVM
+
 	printf(nome1);
+
 	printf(" ");
+
 	printf(referencia1);
+
 	printf(" ");
+
 	printf(classificacao);
+
 	printf(" ");
+
 	printf("%d ", inP1);
+
 	printf("%d ", outP1);
+
 	printf("%d ", outV1);
+
 	printf("%d ", outVM1);
+
 	printf("%d ", inV1);
+
 	printf("%d ", inVM1);
+
 	return;
+
 }
 
