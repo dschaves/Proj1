@@ -17,7 +17,6 @@ Aprendemos e utilizamos apontadores por iniciativa propria.
 /*DIRECTIVAS DE PREPROCESSAMENTO*/
 
 
-
 #include <stdio.h>
 
 #include <string.h>
@@ -30,19 +29,18 @@ Aprendemos e utilizamos apontadores por iniciativa propria.
 
 #define BUFFER_SIZE 256
 
+#define string char*
 
 
 /*ESTRUTURAS*/
-
-	
 
 typedef struct
 
 {
 
-	char nome[NOMES_SIZE];				
+	const char nome[NOMES_SIZE];				
 
-	char referencia[PARAMETROS_MAX];	
+	const char referencia[PARAMETROS_MAX];	
 
 	char classificacao;
 
@@ -94,11 +92,7 @@ void comando_p(char linha[]);
 
 void comando_K(void);
 
-void comando_x(void);
-
-char* get_parametro(char linha[]);  	
-
-		
+void comando_x(void);	
 
 int relacional[BANCOS_MAX][BANCOS_MAX];			
 
@@ -137,18 +131,14 @@ int main(void)
 }
 
 
-
 int processa_comando(char linha[])
 
 {	
 
-	int tamanho = strlen(linha);
-
+	int tamanho = strlen(linha); 	/tamano nao
 	linha[tamanho-1] = ' ';
-
 	linha[0] = ' ';	
-
-	char* comando = get_parametro(linha);
+	string comando = get_parametro(linha);
 
 
 
@@ -208,119 +198,106 @@ int processa_comando(char linha[])
 
 }
 
-	
 
-	
-
-
-
-void comando_a(char linha[])
+int comando_a(string linha)
 
 {
 
-	char* nome = get_parametro(linha);
+	string nome = get_parametro(linha);
 
-	char* ref = get_parametro(linha);
+	string ref = get_parametro(linha);
 
-	char* classif = get_parametro(linha);
+	string classif = get_parametro(linha);
 
 	cria_banco(nome, ref, classif);
 
-	return;
+	return 0;
 
 }
 
 
 
-void comando_k(char linha[]);
+int comando_k(string linha);
 
 {
 
-	char* ref = get_parametro(linha);
+	string ref = get_parametro(linha);
 
 	indice = seek_banco(ref);
 
 	despromove_banco(indice);
 
-	return;
+	return 0;
 
 }
 
+int comando_r(string linha);
 
-
-
-
-
-
-void comando_r(char linha[]);
-
-{
-
-	char* ref = get_parametro(linha);
+{	
+	string referencia;
 
 	indice = seek_banco(ref);
 
 	promove_banco(indice);
 
-	return;
-
+	return 0;
 }
 
 	
 
 
 
-void comando_e(char linha[])
+int comando_e(string linha)
 
 {
 
-	char* ref1 = get_parametro(linha);
+	string ref1 = get_parametro(linha);
 
-	char* ref2 = get_parametro(linha);
+	string ref2 = get_parametro(linha);
 
-	char* valor0 = get_parametro(linha);
+	string valor0 = get_parametro(linha);
 
 	int valor = ASCII_para_decimal(valor0);
 
 	empresta(ref1, ref2, valor);
 
-	return;
+	return 0;
 
 }
 
 	
 
-void comando_p(char [linha]);
+int comando_p(string linha);
 
 {
 
-	char* ref1 = get_parametro(linha);
+	string ref1 = get_parametro(linha);
 
-	char* ref2 = get_parametro(linha);
+	string ref2 = get_parametro(linha);
 
-	char* valor0 = get_parametro(linha);
+	string valor0 = get_parametro(linha);
 
 	int valor = ASCII_para_decimal(valor0);
 
 	amortiza(ref1, ref2, valor);
 
 	return;
-
 }
 
 
 
-void comando_l(char linha[]);
-
+int comando_l(string linha);
 {
+	int i;
 
-	char linha* = 
+	for (i = 0; i >= ; i++)
+	{
+		print_caracteristicas(	
+
+}
 
 
-
-	
-
-void comando_K();
+int comando_K();
 
 {
 
@@ -328,7 +305,7 @@ void comando_K();
 
 	print_caracteristicas(i);
 
-	return;
+	return 0;
 
 }
 
@@ -348,18 +325,7 @@ void comando_x()
 
 	return;
 
-}
-
-
-
-void get_parametro(char linha[])
-
-{return strtok(linha," ")}
-
-	
-
-	
-
+}	
 
 
 void cria_banco(char nome[], int referencia, int classificacao)
@@ -408,7 +374,7 @@ int seek_banco(char ref[])		/*devolve o indice do banco que se quer, NAO O OBJEC
 
 
 
-int* get_relacoes(int indice) /*indice do banco do qual se quer as relacoes*/
+int* actualiza_relacoes(int indice) /*indice do banco do qual se quer as relacoes*/
 
 {
 
@@ -428,9 +394,14 @@ int* get_relacoes(int indice) /*indice do banco do qual se quer as relacoes*/
 
 
 
-	int j; 		/* variavel para os  indices dos outros bancos*/
+	int; 		/* variavel para os  indices dos outros bancos*/
 
-	for (j = 0; j 
+	for (j = 1; j >= Nbancos; j++)
+	{
+		if relacional[indice][j] != 0
+		{
+			
+ 
 
 }
 
@@ -479,12 +450,10 @@ void amortiza(int indice1, int indice2, int montante)
 {
 
 	relacional[indice2][indice1] -= montante;
-
 	return;
 
 }
 
-	
 
 int despromove_pior(void)
 
@@ -522,53 +491,37 @@ int despromove_pior(void)
 
 
 
-void print_caracteristicas(int i)
+void print_caracteristicas(int i, int tipo)
 
 {
 
-	char* nome1 = bancos[i].nome
+	string nome1 = bancos[i].nome
 
-	char* referencia1 = bancos[i].referencia
+	string referencia1 = bancos[i].referencia
 
-	char* classificacao1 = bancos[i].classificacao
+	string classificacao1 = bancos[i].classificacao
 
-	int inP1 = bancos[i].inP
+	printf("%s %s %s", nome1, referencia1, classificacao1);
+	
+	if (tipo)
+	{
+		int inP1 = bancos[i].inP
 
-	int outP1 = bancos[i].outP
+		int outP1 = bancos[i].outP
 
-	int outV1 = bancos[i].outV
+		int outV1 = bancos[i].outV
 
-	int outVM1 = bancos[i].outVM
+		int outVM1 = bancos[i].outVM
 
-	int inV1 = bancos[i].inV
+		int inV1 = bancos[i].inV
 
-	int inVM1 = bancos[i].inVM
+		int inVM1 = bancos[i].inVM
 
-	printf(nome1);
-
-	printf(" ");
-
-	printf(referencia1);
-
-	printf(" ");
-
-	printf(classificacao);
-
-	printf(" ");
-
-	printf("%d ", inP1);
-
-	printf("%d ", outP1);
-
-	printf("%d ", outV1);
-
-	printf("%d ", outVM1);
-
-	printf("%d ", inV1);
-
-	printf("%d ", inVM1);
+		printf(" %d %d %d %d %d %d", inP1, outP1, outV1, outVM1, inV1, inVM1);
 
 	return;
 
 }
 
+void get_parametro(string linha)
+{return strtok(linha, " ");}
