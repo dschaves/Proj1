@@ -1,0 +1,122 @@
+
+/*Atualiza os valores associados a todos os */
+
+void atualiza_valores(void) 
+{
+
+	for (int i = 0; i <= NTotal; i++)
+	{
+		for (int j = 0; j <= NTotal; j++)
+		{
+			if (relacional[i][j]) != 0
+			{
+				
+				bancos[i].outP += 1;
+		
+				bancos[i].outV += relacional[i][j];
+
+				if (bancos[j].classificacao) == 0
+
+					bancos[i].outVM += relacional[i][j];
+			
+			}
+
+			if (relacional[j][i]) != 0
+			{
+
+				bancos[i].inP += 1;
+
+				bancos[i].inV += relacional[j][i];
+				
+					if (bancos[j].classificacao) == 0
+
+						bancos[i].inVM += relacional[j][i];
+
+			}
+
+		}
+
+	}
+
+}
+
+
+/*Atualiza os valores associados a um banco*/
+
+void atualiza_valores_alternativo (int indice) 
+{
+
+	for (j = 0; j <= NTotal; j++)
+	{
+		if (relacional[indice][j]) != 0
+		{
+				
+			bancos[indice].outP += 1;
+		
+			bancos[indice].outV += relacional[i][j];
+
+			if (bancos[j].classificacao) == 0
+
+				bancos[i].outVM += relacional[i][j];
+			
+		}
+
+		if (relacional[j][indice]) != 0
+		{
+
+			bancos[indice].inP += 1;
+
+			bancos[indice].inV += relacional[j][indice];
+				
+				if (bancos[j].classificacao) == 0
+
+					bancos[indice].inVM += relacional[j][indice];
+
+		}
+
+	}
+
+	
+
+}
+
+/*Conta os parceiros*/
+
+void histograma (void)
+
+{
+
+	char parceiros[NTotal];
+
+	int contador_p = 0;
+
+	for (int i = 0; i <= NTotal; i++)
+	{
+		for (int j = 0; j <= NTotal; j++)
+		{
+			if (relacional[i][j] != 0)
+				
+				contador_p += 1;
+
+			if (relacional[j][i] != 0 && relacional[i][j] == 0)
+
+				contador_p += 1;
+
+		}
+
+		parceiros[contador_p] += 1;
+
+		contador_p = 0;
+
+	}
+
+	for (int k = 0; k < NTotal; k++)
+	{
+	
+		if (parceiros[k] != 0)
+
+			printf("%d %d\n", k,parceiros[k]);
+
+	}
+
+}
